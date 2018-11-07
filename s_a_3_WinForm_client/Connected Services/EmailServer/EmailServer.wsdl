@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:intf="http://EmailUtils" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://EmailUtils" targetNamespace="http://EmailUtils" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://EmailUtils">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:complexType name="ArrayOf_xsd_string">
+        <xsd:complexContent mixed="false">
+          <xsd:restriction base="soapenc:Array">
+            <xsd:attribute wsdl:arrayType="xsd:string[]" ref="soapenc:arrayType" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="sendEmailResponse">
+    <wsdl:part name="sendEmailReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="sendEmailBatchRequest">
+    <wsdl:part name="_url" type="impl:ArrayOf_xsd_string" />
+    <wsdl:part name="_payload" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="validateEmailAddressResponse">
+    <wsdl:part name="validateEmailAddressReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="validateEmailAddressRequest">
+    <wsdl:part name="_url" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendEmailRequest">
+    <wsdl:part name="_url" type="xsd:string" />
+    <wsdl:part name="_payload" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendEmailBatchResponse">
+    <wsdl:part name="sendEmailBatchReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:portType name="EmailServices">
+    <wsdl:operation name="validateEmailAddress" parameterOrder="_url">
+      <wsdl:input name="validateEmailAddressRequest" message="impl:validateEmailAddressRequest" />
+      <wsdl:output name="validateEmailAddressResponse" message="impl:validateEmailAddressResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailBatch" parameterOrder="_url _payload">
+      <wsdl:input name="sendEmailBatchRequest" message="impl:sendEmailBatchRequest" />
+      <wsdl:output name="sendEmailBatchResponse" message="impl:sendEmailBatchResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendEmail" parameterOrder="_url _payload">
+      <wsdl:input name="sendEmailRequest" message="impl:sendEmailRequest" />
+      <wsdl:output name="sendEmailResponse" message="impl:sendEmailResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EmailServerSoapBinding" type="impl:EmailServices">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="validateEmailAddress">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="validateEmailAddressRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="validateEmailAddressResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendEmailBatch">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sendEmailBatchRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="sendEmailBatchResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendEmail">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="sendEmailRequest">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output name="sendEmailResponse">
+        <wsdlsoap:body use="encoded" namespace="http://EmailUtils" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmailServicesService">
+    <wsdl:port name="EmailServer" binding="impl:EmailServerSoapBinding">
+      <wsdlsoap:address location="http://localhost:8080/services/EmailServer" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

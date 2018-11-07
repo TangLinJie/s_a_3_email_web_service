@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="欢迎使用邮件发送系统!"
+        android:background="#ff0000"
+        />
+    <TextView
+        android:id="@+id/address_text"
+        android:layout_width="83dp"
+        android:layout_height="44dp"
+        android:text="发送地址："
+        android:background="#f0f0f0"
+        android:layout_below="@+id/title"
+        />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_toRightOf="@+id/address_text"
+        android:layout_below="@+id/title"
+        android:inputType="textEmailAddress"
+        android:singleLine="true"
+        android:scrollHorizontally="false"
+        android:hint="多个邮件地址请用半角分号隔开,如果是检查不要输入分号"
+        android:verticalScrollbarPosition="right"
+        />
+
+    <TextView
+        android:id="@+id/content_text"
+        android:layout_width="83dp"
+        android:layout_height="44dp"
+        android:layout_below="@+id/address"
+        android:background="#f0f0f0"
+        android:text="内容：         " />
+
+    <EditText
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/content_text"
+        android:layout_below="@+id/address"
+        android:inputType="textMultiLine"
+        android:hint="邮件内容"
+        android:gravity="top"
+        android:minLines="6"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_button"
+        android:text="发送"
+        android:layout_below="@+id/content"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/check_address"
+        android:text="查询邮件地址合法性"
+        android:layout_below="@+id/content"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>
